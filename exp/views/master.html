@@ -1,0 +1,23 @@
+$def with (content)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Ejemplo con Firebase</title>
+    <style>
+        nav { background-color: aquamarine; }
+        body { font-family: sans-serif; }
+        .contenido { padding: 20px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/lista_personas">Lista de Personas</a></li>
+        </ul>
+    </nav>
+    <div class="contenido">
+        $:content
+    </div>
+</body>
+</html>
