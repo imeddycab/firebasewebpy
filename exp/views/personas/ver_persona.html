@@ -1,0 +1,10 @@
+$def with (persona)
+
+<h3>Detalles de la Persona</h3>
+
+$if persona:
+    <p><strong>ID:</strong> ${persona.get('id', 'Desconocido')}</p>
+    <p><strong>Nombre:</strong> ${persona.get('name', 'Sin nombre')}</p>
+    <p><strong>Teléfono:</strong> ${persona.get('phone', 'Sin teléfono')}</p>
+$else:
+    <p>No se encontró la persona.</p>

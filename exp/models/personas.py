@@ -71,4 +71,29 @@ class Personas:
             }
             return response
 
+    def obtener_persona(self, id_persona):
+        try:
+            persona = db.child("personas").child(id_persona).get()
+            if persona.val():
+                response = {
+                    "status": 200,
+                    "message": "Persona encontrada",
+                    "persona": persona.val()
+                }
+            else:
+                response = {
+                    "status": 404,
+                    "message": "Persona no encontrada",
+                    "persona": {}
+                }
+            return response
+        except:
+            response = {
+                "status": 400,
+                "message": "Error al obtener persona",
+                "persona": {}
+            }
+            return response
+
+
 personas = Personas()

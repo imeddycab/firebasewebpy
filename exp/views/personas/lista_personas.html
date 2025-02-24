@@ -1,25 +1,27 @@
 $def with (personas)
 
 <h3>Lista de Personas</h3>
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Teléfono</th>
-        </tr>
-    </thead>
-    <tbody>
+
+<body>
+    <div style="display: flex; flex-direction: column; align-items: center; max-width: 100%; max-height: 580px; box-shadow: 2px 2px 8px rgba(0,0,0,0.1); padding: 10px; border-radius: 15px; overflow-y: auto;">
         $if personas:
             $for id_persona, persona in personas.items():
-                <tr>
-                    <td>${id_persona}</td>
-                    <td>${persona.get('name', 'Sin nombre')}</td>
-                    <td>${persona.get('phone', 'Sin teléfono')}</td>
-                </tr>
+                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; border-radius: 8px; padding: 15px; min-width: 380px; width: 550px; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.658); margin: 10px 0;">
+                    <div style="flex: 2; padding-right: 10px;">
+                        <p><strong>ID: </strong>${id_persona}</p>
+                        <p><strong>Nombre: </strong>${persona.get('name', 'Sin nombre')}</td>
+                        <p><strong>Telefono: </strong>${persona.get('phone', 'Sin teléfono')}</td>
+                    </div>
+                    <!-- Columna de acciones -->
+                    <div style="flex: 1; display: flex; justify-content: space-between;">
+                        <p style="color: blue; cursor: pointer; padding: 30px;">Ver</p>
+                        <p style="color: darkorange; cursor: pointer; padding: 30px;">Editar</p>
+                        <p style="color: crimson; cursor: pointer; padding: 30px;">Eliminar</p>
+                    </div>
+                </div>
         $else:
-            <tr>
-                <td colspan="3">No hay personas registradas</td>
-            </tr>
-    </tbody>
-</table>
+            <div style="border: 1px solid #ccc; border-radius: 8px; padding: 15px; width: 500px; box-shadow: 2px 2px 8px rgba(0,0,0,0.1);">
+                <p colspan="3">No hay personas registradas</p>
+            </div>        
+    </div>
+</body>
