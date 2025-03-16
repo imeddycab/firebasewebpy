@@ -1,0 +1,35 @@
+$def with (persona, resultado=None)
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Persona</title>
+</head>
+<body>
+    <h3>Editar Persona</h3>
+
+    $if persona:
+        <form class="formulario" method="post" action="/editar_persona/${persona['id']}">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" value="${persona.get('name', '')}" required>
+            <br><br>
+            <label for="phone">Teléfono:</label>
+            <input type="tel" id="phone" name="phone" value="${persona.get('phone', '')}" required>
+            <br><br>
+            <button type="submit" class="btn-registrar">Guardar</button>
+            <a href="/lista_personas" class="editar-btn">Cancelar</a>
+            $if resultado is not None:
+                <div class="resultado $('exito' if resultado.get('status') == 200 else 'error')">
+                    <p>$resultado.get('message', '')</p>
+                    $if resultado.get('status') == 200:
+                        <p>ID de la persona: ${persona['id']}</p>
+                        <!-- Botón para ver el perfil de la persona -->
+                        <a class="btn-ver" onclick="window.location.href='/persona/${persona['id']}'">Ver Persona</a>
+                </div>
+        </form>
+    $else:
+        <p>No se encontró la persona.</p>
+</body>
+</html>

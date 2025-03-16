@@ -2,33 +2,259 @@ $def with (content)
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Ejemplo con Firebase</title>
+    <title>Gestor de Personas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        nav {
-            background-color: rgb(39, 95, 76);
-            border-radius: 15px;
-            padding: 0.1px;
-        }
         body {
-            font-family: sans-serif;
-        }
-        a {
+            background: linear-gradient(to bottom, #1458c5, #8fa6d6);
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 50px;
+            border-radius: 30px;
             color: white;
+        }
+        h3 {
+            color: #ffffff;
+        }
+
+        /* Barra de navegación */
+        .navbar-custom {
+            position: fixed;
+            top: 20px;
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 10px;
+            transition: all 0.3s ease-in-out;
+            align-content: space-between;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-custom:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            font-weight: 500;
+            padding: 10px 20px;
+            transition: color 0.3s ease, background 0.3s ease;
+            border-radius: 30px;
+            margin-inline: 10px;
+        }
+        .navbar-nav .nav-link:hover {
+            background: rgba(255, 255, 255, 0.5);
+            color: #002e5f;
+            box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.658);
+        }
+
+        /* Botones de tarjeta de peerfil */
+        .ver-btn {
+            color: rgb(0, 132, 255);
+            font-weight: bold;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.658);
+            cursor: pointer;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 30px;
+            order:inherit;
+            background-color: whitesmoke;
+            transition: 0.3s;
+            border-style: none;
             text-decoration: none;
         }
-        .contenido { padding: 20px; }
+        .ver-btn:hover {
+            transition: 0.3s;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.9);
+        }
+        .ver-btn:active {
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.658);
+            color: rgb(0, 84, 163);
+        }
+        .editar-btn {
+            color: rgb(255, 140, 0);
+            font-weight: bold;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.658);
+            cursor: pointer;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 30px;
+            order:inherit;
+            background-color: whitesmoke;
+            transition: 0.3s;
+            border-style: none;
+            text-decoration: none;
+        }
+        .editar-btn:hover {
+            transition: 0.3s;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.9);
+        }
+        .editar-btn:active {
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.658);
+            color: rgb(196, 108, 0);
+        }
+        .eliminar-btn {
+            color: rgb(255, 0, 51);
+            font-weight: bold;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.658);
+            cursor: pointer;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 30px;
+            order:inherit;
+            background-color: whitesmoke;
+            transition: 0.3s;
+            border-style: none;
+        }
+        .eliminar-btn:hover {
+            transition: 0.3s;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.9);
+        }
+        .eliminar-btn:active {
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.658);
+            color: rgb(173, 0, 35);
+        }
+
+        /* Formularios */
+        .formulario {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.658);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin: auto;
+        }
+        label {
+            color: white;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.5);
+            color: black;
+            transition: all 0.3s ease-in-out;
+        }
+        input:focus {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+        }
+        .btn-registrar {
+            color: rgb(0, 132, 255);
+            font-weight: bold;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.658);
+            cursor: pointer;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 30px;
+            background-color: whitesmoke;
+            transition: all 0.3s ease-in-out;
+            border-style: none;
+        }
+        .btn-registrar:hover {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.9);
+        }
+        .btn-registrar:active {
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.658);
+            color: rgb(0, 84, 163);
+        }
+
+        /* Botones */
+        .enviar {
+            padding: 8px;
+            border-radius: 25px;
+            cursor: pointer;
+            border-style: none;
+            background-color: whitesmoke;
+        }
+        .enviar:active {
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.658);
+        }
+
+        /* Respuestas */
+        .resultado {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 20px;
+            background-color: #f0f0f0;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+        .resultado.exito {
+            background-color: rgb(212, 237, 218, 0.4);
+            color: #155724;
+        }
+        .resultado.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .btn-ver {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.658);
+            text-decoration: none;
+        }
+        .btn-ver:active {
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.658);
+        }
+
+        /* Eliminar */
+        .confirmacion {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 30px;
+            background-color: rgba(253, 143, 143, 0.6);
+            color: #970000;
+            text-align: center;
+        }
+        .exito {
+            background-color: rgba(96, 255, 133, 0.3);
+            color: #155724;
+            border-radius: 30px;
+        }
+
     </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/lista_personas">Lista de Personas</a></li>
-            <li><a href="/insertar_persona">Insertar Personas</a></li>
-        </ul>
+
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/lista_personas">Lista de Personas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/insertar_persona">Insertar Personas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/buscar_persona">Buscar Persona</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
-    <div class="contenido">
+
+    <div class="contenido p-4 mt-5 w-75">
         $:content
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

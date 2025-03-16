@@ -20,8 +20,6 @@ class VerPersona:
             else:
                 persona = {}
 
-            print(f"CONSULTA DE PERSONA {id_persona}: {persona}")
-
             # Renderizar la vista con los datos obtenidos
             return render.ver_persona(persona)
         except Exception as error:

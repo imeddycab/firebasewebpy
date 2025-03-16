@@ -1,0 +1,48 @@
+$def with (id_persona, persona, eliminado=False)
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Eliminación</title>
+    <style>
+        .btn-cancelar, .btn-regresar {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #ffffff;
+            color: rgb(0, 140, 255);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+        }
+        .btn-cancelar:hover, .btn-regresar:hover {
+            background-color: #d1d1d1;
+        }
+    </style>
+</head>
+<body>
+    <h3>Confirmar Eliminación</h3>
+
+    $if not eliminado:
+        <div class="confirmacion">
+            <h4 style="margin: 30px;"><strong>¿Estás seguro de que deseas eliminar a la siguiente persona?</strong></h4>
+            <p><strong>ID:</strong> ${persona.get('id', 'Desconocido')}</p>
+            <p><strong>Nombre:</strong> ${persona.get('name', 'Sin nombre')}</p>
+            <p><strong>Teléfono:</strong> ${persona.get('phone', 'Sin teléfono')}</p>
+
+            <form method="post" action="/eliminar_persona/${id_persona}">
+                <button type="submit" class="eliminar-btn">Sí, Eliminar</button>
+                <a href="/lista_personas" class="ver-btn">Cancelar</a>
+            </form>
+        </div>
+    $else:
+        <div class="confirmacion exito">
+            <h4 style="margin: 30px;"><strong>✅ La persona ha sido eliminada correctamente.</strong></h4>
+            <a href="/lista_personas" class="ver-btn">Regresar a la lista de usuarios</a>
+        </div>
+</body>
+</html>

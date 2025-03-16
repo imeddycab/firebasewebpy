@@ -1,0 +1,51 @@
+$def with (personas, q, page, total_pages)
+
+<h3>Buscar Persona</h3>
+
+<body>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <!-- Campo de búsqueda -->
+        <form method="GET" action="" style="margin-bottom: 10px;">
+            <input type="text" name="q" placeholder="Buscar por ID, nombre o teléfono"
+                value="$q" style="width: 300px; border-radius: 25px;">
+            <button type="submit" class="enviar">Buscar</button>
+        </form>
+
+        <div style="max-width: 100%; max-height: 480px; padding: 10px; border-radius: 25px; overflow-y: auto;">
+            $if personas:
+                $for id_persona, persona in personas.items():
+                    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; 
+                        border-radius: 20px; padding: 15px; min-width: 380px; width: 550px; 
+                        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.658); margin: 20px; background-color: rgba(255, 255, 255, 0.2);">
+                        <div style="flex: 2; padding-right: 10px; color: #fff;">
+                            <p><strong>ID:</strong> ${id_persona}</p>
+                            <p><strong>Nombre:</strong> ${persona.get('name', 'Sin nombre')}</p>
+                            <p><strong>Teléfono:</strong> ${persona.get('phone', 'Sin teléfono')}</p>
+                        </div>
+                        <!-- Columna de acciones -->
+                        <div style="flex: 1; display: flex; justify-content: space-between;">
+                            <a class="ver-btn" href="/persona/${id_persona}"  style="text-decoration: none;">Ver</a>
+                            <a class="editar-btn" href="/editar_persona/${id_persona}"  style="text-decoration: none;">Editar</a>
+                            <a class="eliminar-btn" href="/eliminar_persona/${id_persona}" style="text-decoration: none;">Eliminar</a>
+                        </div>
+                    </div>
+            $else:
+                <div style="border: 1px solid #ccc; border-radius: 20px; padding: 15px; width: 500px; box-shadow: 2px 2px 8px rgba(0,0,0,0.1);">
+                    <p>¡Oh oh! No encontramos algo parecido</p>
+                </div>
+        </div>
+
+        <!-- Paginación -->
+        <div style="margin-top: 20px;">
+            $if total_pages > 1:
+                <nav>
+                    $if page > 1:
+                        <a href="?q=${q}&page=${page-1}" style="margin-right: 10px; text-decoration: none; color: #fff;">⬅ Anterior</a>
+                    $for p in range(1, total_pages+1):
+                        <a href="?q=${q}&page=${p}" style="margin: 0 5px; color: #fff; text-decoration: ${'underline' if p == page else 'none'};">${p}</a>
+                    $if page < total_pages:
+                        <a href="?q=${q}&page=${page+1}" style="margin-left: 10px; text-decoration: none; color: #fff;">Siguiente ➡</a>
+                </nav>
+        </div>
+    </div>
+</body>

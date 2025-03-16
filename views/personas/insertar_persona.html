@@ -1,1 +1,29 @@
-<h3>Insertar Persona</h3>
+$def with (resultado)
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertar Persona</title>
+</head>
+<body>
+    <h3>Insertar Persona</h3>
+    <form class="formulario" id="registro-form" method="post" action="/insertar_persona">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required>
+        <br><br>
+        <label for="phone">Teléfono:</label>
+        <input type="tel" id="phone" name="phone" required>
+        <br><br>
+        <button type="submit" class="btn-registrar">Registrar</button>
+        $if resultado is not None:
+            <div class="resultado $('exito' if resultado.get('status') == 200 else 'error')">
+                <p>$resultado.get('message', '')</p>
+                $if resultado.get('status') == 200:
+                    <p>ID de la persona: ${resultado.get('id', '')}</p>
+                    <button class="btn-ver" onclick="window.location.href='/persona/${resultado.get('id', '')}'">Ver Persona</button>
+            </div>
+    </form>
+</body>
+</html>
