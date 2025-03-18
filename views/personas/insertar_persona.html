@@ -9,12 +9,13 @@ $def with (resultado)
 </head>
 <body>
     <h3>Insertar Persona</h3>
+    <hr>
     <form class="formulario" id="registro-form" method="post" action="/insertar_persona">
         <label for="name">Nombre:</label>
         <input type="text" id="name" name="name" required>
         <br><br>
         <label for="phone">Teléfono:</label>
-        <input type="tel" id="phone" name="phone" required>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" maxlength="10" placeholder="Ingrese 10 numeros..." required>
         <br><br>
         <button type="submit" class="btn-registrar">Registrar</button>
         $if resultado is not None:

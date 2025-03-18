@@ -9,14 +9,14 @@ $def with (persona, resultado=None)
 </head>
 <body>
     <h3>Editar Persona</h3>
-
+    <hr>
     $if persona:
         <form class="formulario" method="post" action="/editar_persona/${persona['id']}">
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name" value="${persona.get('name', '')}" required>
             <br><br>
             <label for="phone">Teléfono:</label>
-            <input type="tel" id="phone" name="phone" value="${persona.get('phone', '')}" required>
+            <input type="tel" id="phone" name="phone" value="${persona.get('phone', '')}" pattern="[0-9]{10}" maxlength="10" placeholder="Ingrese 10 numeros..." required>
             <br><br>
             <button type="submit" class="btn-registrar">Guardar</button>
             <a href="/lista_personas" class="editar-btn">Cancelar</a>

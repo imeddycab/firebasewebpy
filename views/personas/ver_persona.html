@@ -1,7 +1,7 @@
 $def with (persona)
 
-<h3>Detalles de la Persona</h3>
-
+<h3>Detalles de ${persona.get('name', 'Sin nombre')}</h3>
+<hr>
 $if persona:
     <p><strong>ID:</strong> ${persona.get('id', 'Desconocido')}</p>
     <p><strong>Nombre:</strong> ${persona.get('name', 'Sin nombre')}</p>
